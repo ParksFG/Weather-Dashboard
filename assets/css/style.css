@@ -1,9 +1,10 @@
-body {
-    margin: 10px;
-}
-
 * {
     font-family: 'Inter', sans-serif;
+}
+
+
+body {
+    margin: 10px;
 }
 
 h2 {
@@ -29,6 +30,7 @@ header h1 {
     margin: 0px;
 }
 
+/* Sidebar stylings */
 #leftSidebar {
     width: 15%;
 }
@@ -64,11 +66,23 @@ header h1 {
 
 }
 
+/* Main Content Styles */
 #contentContainer {
     width: 100%;
     margin: 25px auto;
     height: 300px;
     border: 2px solid black;
+}
+
+#contentContainer p {
+    margin: 35px;
+}
+
+#spanUV {
+    background-color: green;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
 }
 
 #everythingContainer {
@@ -80,12 +94,14 @@ header h1 {
     margin: 15px auto;
 }
 
+/* Five Day Forecast Styles */
 #fiveDayForecast {
     height: 300px;
 }
 
 #fiveDayCardsContainer {
     display: flex;
+    visibility: hidden;
 }
 
 .fiveDayCards {

@@ -26,26 +26,25 @@
             </div>
             <hr>
             <div id="prevSearches">
+                <!-- Ordered list will hold at max 9 items -->
                 <ol>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+
                 </ol>
             </div>
         </div>
         <div id="mainContainer">
+            <!-- Default values -->
             <main id="contentContainer">
-                <h1 id="mainCityName">Austin</h1>
+                <h1 id="mainCityName">City</h1>
+                <p>Temp: <span></span></p>
+                <p>Wind: <span></span></p>
+                <p>Humidity: <span></span></p>
+                <p>UV Index: <span id="spanUV">#</span></p>
             </main>
             <div id="fiveDayForecast">
                 <h3>5 Day Forecast:</h3>
                 <div id="fiveDayCardsContainer">
+                    <!-- Each Card will always be used, no need for dynamic here except for content -->
                     <div class="fiveDayCards">
                         <h2></h2>
                         <p></p>
