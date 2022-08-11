@@ -72,10 +72,15 @@ header h1 {
     margin: 25px auto;
     height: 300px;
     border: 2px solid black;
+    background-color: rgb(202, 230, 240);
 }
 
 #contentContainer p {
-    margin: 35px;
+    margin: 25px;
+}
+
+#contentContainer img {
+    margin-left: 25px;
 }
 
 #spanUV {
@@ -101,7 +106,7 @@ header h1 {
 
 #fiveDayCardsContainer {
     display: flex;
-    visibility: hidden;
+    visibility: visible;
 }
 
 .fiveDayCards {
