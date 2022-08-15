@@ -27,7 +27,7 @@ function searchResults() {
         window.alert("Please enter a city.");
     } else {
         // Retrieves the latitude and longitude for one call api
-        fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&appid=" + openWeatherKey)
+        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + searchInput + "&appid=" + openWeatherKey)
         .then((locationResults) => locationResults.json())
         .then((locationResults) => {
             console.log(locationResults);
