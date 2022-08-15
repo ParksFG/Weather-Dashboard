@@ -6,6 +6,7 @@ var contentContainer = document.querySelector('#contentContainer');
 var fiveDayCardsContainer = document.querySelector('#fiveDayCardsContainer');
 var fiveDayCards = document.querySelectorAll('.fiveDayCards');
 var openWeatherKey = "74bb7b421208780329a0fae516ea617c";
+var newLi = document.createElement("li")
 
 function searchResults(event) {
     event.preventDefault();
@@ -24,20 +25,36 @@ function searchResults(event) {
             .then((weatherResults) => {
                 console.log(weatherResults);
                 mainCityName.textContent = searchInput
+                // Setting the main content container to the correct data from the api call
                 contentContainer.querySelector("img").setAttribute("src", "https://openweathermap.org/img/wn/" + weatherResults.current.weather[0].icon + ".png")
                 contentContainer.querySelectorAll("span")[0].textContent = (weatherResults.current.temp + "° F");
                 contentContainer.querySelectorAll("span")[1].textContent = (weatherResults.current.wind_speed + " MPH");
                 contentContainer.querySelectorAll("span")[2].textContent = (weatherResults.current.humidity + "%");
                 contentContainer.querySelectorAll("span")[3].textContent = (weatherResults.current.uvi);
-                fiveDayCardsContainer.setAttribute("visibility", "visible")
+                // Background color changing for different uv index
+                var uvIndex = contentContainer.querySelectorAll("span")[3]
+                if(uvIndex.textContent <= 2) {
+                    uvIndex.setAttribute("style", "background-color: #65cc1e")
+                }else if(uvIndex.textContent <= 5) {
+                    uvIndex.setAttribute("style", "background-color: #ffde32")
+                }else if(uvIndex.textContent <= 7) {
+                    uvIndex.setAttribute("style", "background-color: #ffa500")
+                }else if(uvIndex.textContent < 11) {
+                    uvIndex.setAttribute("style", "background-color: #e60073")
+                }else if(uvIndex.textContent >= 11) {
+                    uvIndex.setAttribute("style", "background-color: #9572ff")
+                    uvIndex.textContent = (weatherResults.current.uvi + "  EXTREMELY HIGH")
+                }
+                // Brings up the Five Day Forecast
+                fiveDayCardsContainer.setAttribute("style", "visibility: visible")
                 // Five Day Forecast
                 for (var i = 0; i < 5; i++) {
                     if(i === 0 + i) {
-                        // Need moment.js here
-                        fiveDayCards[i].querySelector("img").setAttribute("src", "https://openweathermap.org/img/wn/" + weatherResults.daily[i].weather[0].icon + ".png")
-                        fiveDayCards[i].querySelectorAll("span")[0].textContent = (weatherResults.daily[i].temp.day + "° F");
-                        fiveDayCards[i].querySelectorAll("span")[1].textContent = (weatherResults.daily[i].wind_speed + " MPH");
-                        fiveDayCards[i].querySelectorAll("span")[2].textContent = (weatherResults.daily[i].humidity + "%");
+                        fiveDayCards[i].querySelector('h2').textContent = (moment.unix(weatherResults.daily[i + 1].dt).format('MMMM Do'))
+                        fiveDayCards[i].querySelector("img").setAttribute("src", "https://openweathermap.org/img/wn/" + weatherResults.daily[i + 1].weather[0].icon + ".png")
+                        fiveDayCards[i].querySelectorAll("span")[0].textContent = (weatherResults.daily[i + 1].temp.day + "° F");
+                        fiveDayCards[i].querySelectorAll("span")[1].textContent = (weatherResults.daily[i + 1].wind_speed + " MPH");
+                        fiveDayCards[i].querySelectorAll("span")[2].textContent = (weatherResults.daily[i + 1].humidity + "%");
                     }
                 }
             })

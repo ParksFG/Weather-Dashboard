@@ -84,10 +84,8 @@ header h1 {
 }
 
 #spanUV {
-    background-color: green;
     padding: 5px;
     border-radius: 5px;
-    color: white;
 }
 
 #everythingContainer {
@@ -106,7 +104,7 @@ header h1 {
 
 #fiveDayCardsContainer {
     display: flex;
-    visibility: visible;
+    visibility: hidden;
 }
 
 .fiveDayCards {
