@@ -1,17 +1,28 @@
 var searchInput = document.querySelector('#searchInput').value;
 var searchBtn = document.querySelector('#searchBtn');
-var prevSearchesLsit = document.querySelector('#prevSearchesList');
+var prevSearchesList = document.querySelector('#prevSearchesList');
 var mainCityName = document.querySelector('#mainCityName');
 var contentContainer = document.querySelector('#contentContainer');
 var fiveDayCardsContainer = document.querySelector('#fiveDayCardsContainer');
 var fiveDayCards = document.querySelectorAll('.fiveDayCards');
 var openWeatherKey = "74bb7b421208780329a0fae516ea617c";
-var newLi = document.createElement("li")
+var prevSearches = [""];
 
-function searchResults(event) {
+function searchResults() {
+    searchInput = document.querySelector('#searchInput').value
+    searchInput = capitalizeFirstLetter(searchInput)
     event.preventDefault();
-    fiveDayCardsContainer.setAttribute("visibility", "visible")
+    // Brings up the Five Day Forecast
+    fiveDayCardsContainer.setAttribute("style", "visibility: visible")
     console.log(searchInput)
+    // Adding list of previous searches
+    if (!prevSearches.includes(searchInput)) {
+        prevSearches.push(searchInput);
+        var newLi = document.createElement("li")
+        prevSearchesList.prepend(newLi)
+        prevSearchesList.querySelector("li").textContent = searchInput
+    }
+    // Blank search check
     if(searchInput === "") {
         window.alert("Please enter a city.");
     } else {
@@ -32,7 +43,7 @@ function searchResults(event) {
                 contentContainer.querySelectorAll("span")[2].textContent = (weatherResults.current.humidity + "%");
                 contentContainer.querySelectorAll("span")[3].textContent = (weatherResults.current.uvi);
                 // Background color changing for different uv index
-                var uvIndex = contentContainer.querySelectorAll("span")[3]
+                var uvIndex = contentContainer.querySelectorAll("span")[3];
                 if(uvIndex.textContent <= 2) {
                     uvIndex.setAttribute("style", "background-color: #65cc1e")
                 }else if(uvIndex.textContent <= 5) {
@@ -45,8 +56,6 @@ function searchResults(event) {
                     uvIndex.setAttribute("style", "background-color: #9572ff")
                     uvIndex.textContent = (weatherResults.current.uvi + "  EXTREMELY HIGH")
                 }
-                // Brings up the Five Day Forecast
-                fiveDayCardsContainer.setAttribute("style", "visibility: visible")
                 // Five Day Forecast
                 for (var i = 0; i < 5; i++) {
                     if(i === 0 + i) {
@@ -63,4 +72,21 @@ function searchResults(event) {
     }
 }
 
+
+
 searchBtn.addEventListener("click", searchResults);
+
+// Clicking on previous search results
+document.addEventListener("click", function(event) {
+    if(event.target.matches('li')) {
+        console.log(event.target.textContent)
+        document.querySelector('#searchInput').value = event.target.textContent;
+        searchResults()
+    }else {
+        return;
+    }
+})
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
